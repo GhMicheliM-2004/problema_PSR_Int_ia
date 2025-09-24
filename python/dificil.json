@@ -23,6 +23,17 @@
     "J5":"volante"
   },
 
-  "limite": { "forca media": "80" }
+  "limite": { "forca media": "80" },
+
+  "restricoes":{
+    "C1": "{j | Vj=T1}| = |{j | Vj=T2}| ± 1",
+    "C2": "V1 ≠ V2",
+    "C3": "V3 = V4",
+    "C4": "Mínimo 2 jogadores por time",
+    "C5": "V5 ≠ T2",
+    "C6": "Se V3 = V4 = T1 então V1 = T2",
+    "C7": "Jogadores na mesma posição não podem estar no mesmo time (opcional)",
+    "C8": "Média de overais por time não pode ultrapassar limite (opcional)"
+  }
 
 }
