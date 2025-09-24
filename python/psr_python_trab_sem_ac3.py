@@ -118,15 +118,15 @@ def verificacao_final (arquivo, dados):
 
     # C8: Limite de força média por time (encode como soma de ratings não ultrapassar limiar).
     if "limite" in dados :
-        limite = float(dados["limite"])
+        limite = float(dados["limite"].items('numero')[0]) # Pega o valor do limite
         soma = {"T1": 0, "T2": 0}
         contt = {"T1": 0, "T2": 0}
         for j in jogadores:
             t = arquivo[j]
             soma[t] += int(dados["overais"][j])
-            contt[t] += 1
+            contt[t] += 1 # Conta quantos jogadores tem em cada time
         for t in ("T1", "T2"):
-            if contt[t] > 0 and (soma[t] / contt[t]) > limite:
+            if contt[t] > 0 and (soma[t] / contt[t]) > limite: # Se o time tem jogadores e a média ultrapassa o limite
                 return False
 
     return True
@@ -205,10 +205,10 @@ def main(caminho):
     for jogador, posicao in dados["posicoes"].items():
         print(f"  {jogador}: {posicao}")
     print("\n-- Restrições --")
-    for restricao, numero in dados["restricoes"].items():
+    for restricao, numero in dados["restricoes"].items(): # C1, C4, C5, C6, C7
         print(f"  {restricao}: {numero}")
     if "limite" in dados:
-        print(f"\n-- Limite de força (C8): {dados['limite']}")
+        print(f"\n-- Limite de força (C8): {dados['limite']['numero']} --")
     print("")  # linha em branco
 
     print("\n-- Verificando restrições --\n")
