@@ -1,159 +1,3 @@
-"""
-Solver para o Tópico 7 (5 jogadores) usando:
-- MRV (Minimum Remaining Values) para selecionar variável
-- LCV (Least Constraining Value) para ordenar valores
-- AC-3 (pré-processamento), forward checking e checagens parciais
-Entrada: dicionário 'arquivo' no formato JSON mostrado pelo usuário.
-"""
-
-import json
-import time
-# import copy 
-# from collections import defaultdict
-
-with open('facil.json', 'r') as arquivo:
-    dados = json.load(arquivo)
-    print(f"\n_________ Verificando o JSON: {arquivo.name} __________\n\nJSON:\n")
-    for item, overall in dados["overais"].items():
-      print(f"Jogador: {item} | Overall: {overall}")
-    for item, time in dados["jogadores"].items():
-      print(f"Jogador: {item} | Time: {time}")
-    for item, posicao in dados["posicoes"].items():
-      print(f"Jogador: {item} | Posição: {posicao}")
-
-#inicio = time.time()
-
-# nos_explorados = 0
-# retrocessos = 0
-
-def verifica_restricoes(arquivo):
-    t1 = [j for j, t in arquivo["jogadores"].items() if t == 'T1'] # Todos os jogadores do T1
-    t2 = [j for j, t in arquivo["jogadores"].items() if t == 'T2'] # Todos os jogadores do T2
-   
-    # C4: Restrição de no máximo 5 jogadores e no mínimo 2
-    if len(arquivo["jogadores"]) < 5 and len(arquivo["jogadores"]) >= 2:
-        return True
-
-    # C2: J1 ≠ J2
-    if arquivo['J1'].items() != arquivo['J2'].items():
-      return True
-
-    # C4: Mínimo 2 jogadores por time
-    if len(t1) <= 2 and len(t2) <= 2:
-      return True
-
-#     # C1: Balanceamento ±1
-#     if abs(len(t1) - len(t2)) > 1:
-#         return False
-
-#     # C3: J3 = J4
-#     if 'J3' in assignment and 'J4' in assignment:
-#         if assignment['J3'] != assignment['J4']:
-#             return False
-
-
-
-#     # C5: J5 ≠ T2
-#     if 'J5' in assignment and assignment['J5'] == 'T2':
-#         return False
-
-#     # C6: Se J3 = J4 = T1 → J1 = T2
-#     if all(j in assignment for j in ['J1', 'J3', 'J4']):
-#         if assignment['J3'] == assignment['J4'] == 'T1' and assignment['J1'] != 'T2':
-#             return False
-
-#     # C7: Mesma posição não pode concentrar-se no mesmo time (>2)
-#     for time in ['T1', 'T2']:
-#         pos_count = defaultdict(int)
-#         for j, t in assignment.items():
-#             if t == time:
-#                 pos_count[dados["posicoes"][j]] += 1
-#         if any(v > 2 for v in pos_count.values()):
-#             return False
-
-#     # C8: Média de força ≤ 8.5 por time
-#     for time in ['T1', 'T2']:
-#         jogadores = [j for j, t in assignment.items() if t == time]
-#         media = sum(dados["overais"][j] for j in jogadores) / len(jogadores)
-#         if media > 8.5:
-#             return False
-
-#     return True
-
-# def ac3(dom):
-#     queue = [('J1', 'J2'), ('J3', 'J4')]
-#     while queue:
-#         xi, xj = queue.pop(0)
-#         revised = False
-#         for x in dom[xi][:]:
-#             if not any(verifica({xi: x, xj: y}) for y in dom[xj]):
-#                 dom[xi].remove(x)
-#                 revised = True
-#         if revised:
-#             for xk in dom:
-#                 if xk != xi:
-#                     queue.append((xk, xi))
-#     return dom
-
-# # Algoritmo de Backtracking com métricas
-# def backtrack(dom, assignment={}):
-#     global nos_explorados, retrocessos
-#     if len(assignment) == len(dom):
-#         return assignment
-#     var = mrv(dom)[0][0]  # Escolhe a variável com menor domínio
-#     for val in lcv(var, dom, assignment):
-#         nos_explorados += 1
-#         assignment[var] = val
-#         if verifica(assignment):
-#             result = backtrack(dom, assignment)
-#             if result:
-#                 return result
-#         del assignment[var]
-#         retrocessos += 1
-#     return None
-
-# # Heurística MRV
-# def mrv(dom):
-#     return sorted(dom.items(), key=lambda item: len(item[1]))
-
-# # Heurística LCV
-# def lcv(var, dom, assignment):
-#     def impacto(valor):
-#         conflitos = 0
-#         for outro in dom:
-#             if outro != var and outro not in assignment:
-#                 for v_outro in dom[outro]:
-#                     simulado = assignment.copy()
-#                     simulado[var] = valor
-#                     simulado[outro] = v_outro
-#                     # Só verifica se já temos pelo menos 2 jogadores simulados
-#                     if len(simulado) >= 2 and not verifica(simulado):
-#                         conflitos += 1
-#         return conflitos
-#     return sorted(dom[var], key=impacto)
-
-# # Execução principal
-# start = time.time()
-# dom_reduzido = ac3(copy.deepcopy(dados["jogadores"]))
-# solucao = backtrack(dom_reduzido)
-# end = time.time()
-
-# # Saída formatada com status
-# print("\n===== RESULTADO =====")
-# if solucao:
-#     print("Solução encontrada:")
-#     for jogador, time in solucao.items():
-#         print(f"{jogador} → {time}")
-#     print("\nStatus: ✅ Solução válida encontrada")
-# else:
-#     print("Nenhuma solução possível.")
-#     print("\nStatus: ❌ Instância inconsistente — nenhuma atribuição satisfaz todas as restrições")
-
-# print(f"\nTempo de execução: {round(end - start, 4)} segundos")
-# print(f"Nós explorados: {nos_explorados}")
-# print(f"Retrocessos: {retrocessos}")
-# print("======================\n")
-
 import json
 import time
 from collections import deque
@@ -186,38 +30,43 @@ def construir_restricoes_binarias(lista_ordenada, posicoes):
             if posicoes.get(vi) == posicoes.get(vj):
                 add(vi, vj, restricao_c7)
                 add(vj, vi, restricao_c7)
-    return restricoes, vizinhos
+    return restricoes, vizinhos # Retorna o dicionário de restrições e o dicionário de vizinhos
 
-# -------------------------
 # AC-3: consistência de arco (pré-processamento)
-# -------------------------
-def revise(dominios, xi, xj, restricoes):
+# dominios: dicionário {var: [valores possíveis]}
+# restricoes: dicionário {(var1, var2): função que retorna True se valores são compatíveis} (ou seja, se existe restrição entre var1 e var2)
+def revisao(dominios, xi, xj, restricoes): #
     if (xi, xj) not in restricoes:
         return False
-    cfn = restricoes[(xi, xj)]
-    removido = False
-    novo = []
+    cfn = restricoes[(xi, xj)] 
+    removido = False 
+    novo = [] 
     for vi in dominios[xi]:
-        # existe vj em dominios[xj] que satisfaça cfn(vi, vj)?
-        if any(cfn(vi, vj) for vj in dominios[xj]):
-            novo.append(vi)
+        # Existe vj em dominios[xj] que satisfaça cfn(vi, vj)?
+        if any(cfn(vi, vj) for vj in dominios[xj]): # Se existe, mantém vi
+            novo.append(vi)  
         else:
             removido = True
     if removido:
         dominios[xi] = novo
     return removido
 
-def ac3(dominios, restricoes):
-    fila = deque(restricoes.keys())
+# AC-3 principal
+def ac3(dominios, restricoes): 
+    # Deque (fila) de arcos (xi, xj)
+    # Inicia com todos os arcos
+    # Deque é mais eficiente que lista para pop(0)
+    fila = deque(restricoes.keys()) 
     while fila:
-        xi, xj = fila.popleft()
-        if revise(dominios, xi, xj, restricoes):
+        xi, xj = fila.popleft() # Popleft é uma função de deque que remove e retorna o primeiro elemento
+        # Se domínio de xi foi reduzido, re-adiciona arcos (xk, xi)
+        if revisao(dominios, xi, xj, restricoes):
             if not dominios[xi]:
                 return False
-            # re-adiciona arcos (xk, xi)
+            # Re-adiciona arcos (xk, xi)
             for (xk, _xi) in list(restricoes.keys()):
                 if _xi == xi and xk != xj:
-                    fila.append((xk, xi))
+                    fila.append((xk, xi)) # Adiciona arco (xk, xi) para re-verificação
     return True
 
 # MRV: selecionar variável que possui o menor número de valores possíveis em seu domínio.
@@ -319,37 +168,48 @@ def verificacao_final (arquivo, dados):
                 limite = None
         if limite is not None:
             soma = {"T1": 0, "T2": 0}
-            contt = {"T1": 0, "T2": 0}
+            conta_times = {"T1": 0, "T2": 0}
             for j in jogadores:
                 t = arquivo[j]
                 soma[t] += int(dados["overais"][j])
-                contt[t] += 1 # Conta quantos jogadores tem em cada time
+                conta_times[t] += 1 # Conta quantos jogadores tem em cada time
             for t in ("T1", "T2"):
-                if contt[t] > 0 and (soma[t] / contt[t]) > limite: # Se o time tem jogadores e a média ultrapassa o limite
+                if conta_times[t] > 0 and (soma[t] / conta_times[t]) > limite: # Se o time tem jogadores e a média ultrapassa o limite
                     return False
 
     return True
 
-# Backtracking (sem AC-3 pré). 
-# Mede tempo total e tempo de busca.
-# Busca recursiva. Se as variáveis já tem valor, então chama verificacao_final, se passa vai como solução, senão vai como retrocesso. Se ainda faltam variáveis chama a próxima com MRV e ordena os valores possíveis com LCV
-# Retorna uma lista de dicionários solucoes (ex: { "J1": "T1", "J2": "T2", ... }) e stats com as métricas
-def backtracking_solver_sem_ac3(dados):
-    lista_ordenada = sorted(list(dados["jogadores"].keys())) # {'J1','J2','J3',...}
+# Solver com AC-3 (pré-processamento)
+# Usa MRV, LCV, AC-3 (pré), forward checking e checagens parciais
+# Entrada: dicionário 'arquivo' no formato JSON mostrado pelo usuário.
+# Retorna: lista de soluções e dicionário de estatísticas
+def backtracking_solver_com_ac3(dados):
+    lista_ordenada = sorted(list(dados["jogadores"].keys()))
     dominios_iniciais = {v: list(dados["jogadores"][v])[:] for v in lista_ordenada}
     restricoes, vizinhos = construir_restricoes_binarias(lista_ordenada, dados["posicoes"])
 
-    nos_encontrados = 0 # Testes feitos
+    # Aplica AC-3 nos domínios iniciais (pré-processamento)
+    dominios = {v: list(dominios_iniciais[v])[:] for v in dominios_iniciais}
+    inicio_pre = time.time()
+    ac_ok = ac3(dominios, restricoes) # ac_ok será False se detectar inconsistência
+    fim_pre = time.time()
+    tempo_pre = fim_pre - inicio_pre
+
+    # se AC-3 detectar inconsistência, retornamos estatísticas vazias (sem buscar)
+    if not ac_ok:
+        return [], {"time": tempo_pre, "time_search": 0.0, "nodes": 0, "retrocessos": 0, "solutions": 0}
+
+    nos_encontrados = 0 # Nós testados
     retrocessos = 0 # Retrocessos
     solucoes = [] # Soluções completas encontradas
 
-    inicio_total = time.time()
     inicio_busca = time.time()
 
+    # Busca recursiva. Se as variáveis já tem valor, então chama verificacao_final, se passa vai como solução, senão vai como retrocesso. Se ainda faltam variáveis chama a próxima com MRV e ordena os valores possíveis com LCV
     # Aqui podemos dizer que todas as variáveis foram atribuídas
     def busca(arquivo, dominios_correntes): # dominios_correntes contém os domínios atuais (após forward checking)
         nonlocal nos_encontrados, retrocessos, solucoes
-        if len(arquivo) == len(lista_ordenada) :
+        if len(arquivo) == len(lista_ordenada): 
             if verificacao_final(arquivo, dados) == True: # Já verificado pelas restrições
                 solucoes.append(dict(arquivo)) # Salva um cópia dict de arquivo em solucoes
             else: # Verificação final deu False (atribuição inválida)
@@ -372,76 +232,20 @@ def backtracking_solver_sem_ac3(dados):
 
         return False
 
-    busca({}, dominios_iniciais)
-    fim_busca = time.time()
-    fim_total = time.time()
-    tempo_exex_busca = fim_busca - inicio_busca
-    tempo_exex_total = fim_total - inicio_total
-
-    # Dicionário de resposta para apresentação das estatísticas
-    stats = {"time": tempo_exex_total, 
-             "time_search": tempo_exex_busca,
-             "nodes": nos_encontrados, 
-             "retrocessos": retrocessos, 
-             "solutions": len(solucoes)
-             }
-    
-    return solucoes, stats
-
-# --- nova função: mesma lógica do backtracking acima, porém com AC-3 como pré-processamento
-def backtracking_solver_com_ac3(dados):
-    lista_ordenada = sorted(list(dados["jogadores"].keys()))
-    dominios_iniciais = {v: list(dados["jogadores"][v])[:] for v in lista_ordenada}
-    restricoes, vizinhos = construir_restricoes_binarias(lista_ordenada, dados["posicoes"])
-
-    # Aplica AC-3 nos domínios iniciais (pré-processamento)
-    dominios = {v: list(dominios_iniciais[v])[:] for v in dominios_iniciais}
-    inicio_pre = time.time()
-    ac_ok = ac3(dominios, restricoes)
-    fim_pre = time.time()
-    tempo_pre = fim_pre - inicio_pre
-
-    # se AC-3 detectar inconsistência, retornamos estatísticas vazias (sem buscar)
-    if not ac_ok:
-        return [], {"time": tempo_pre, "time_search": 0.0, "nodes": 0, "retrocessos": 0, "solutions": 0}
-
-    nos_encontrados = 0
-    retrocessos = 0
-    solucoes = []
-
-    inicio_busca = time.time()
-
-    def busca(arquivo, dominios_correntes):
-        nonlocal nos_encontrados, retrocessos, solucoes
-        if len(arquivo) == len(lista_ordenada):
-            if verificacao_final(arquivo, dados) == True:
-                solucoes.append(dict(arquivo))
-            else:
-                retrocessos += 1
-            return False
-
-        var = selecionar_mrv(arquivo, dominios_correntes)
-        valores = ordenar_lcv(var, dominios_correntes, vizinhos, restricoes, arquivo)
-        for v in valores:
-            nos_encontrados += 1
-            pruned = forward_checking(dominios_correntes, var, v, restricoes)
-            if pruned is None:
-                retrocessos += 1
-                continue
-
-            arquivo[var] = v
-            busca(arquivo, pruned)
-            del arquivo[var]
-
-        return False
-
     busca({}, dominios)
     fim_busca = time.time()
     tempo_busca = fim_busca - inicio_busca
     tempo_total = time.time() - inicio_pre + tempo_busca  # inclui pré-processamento na conta total
 
-    stats = {"time": tempo_total, "time_pre": tempo_pre, "time_search": tempo_busca,
-             "nodes": nos_encontrados, "retrocessos": retrocessos, "solutions": len(solucoes)}
+    # Dicionário de resposta para apresentação das estatísticas
+    stats = {"time": tempo_total, 
+             "time_pre": tempo_pre, 
+             "time_search": tempo_busca,
+             "nodes": nos_encontrados, 
+             "retrocessos": retrocessos,
+             "solutions": len(solucoes)
+             }
+    
     return solucoes, stats
 
 def main(caminho):
@@ -490,22 +294,4 @@ def main(caminho):
             print(f"  {j}: {s[j]}")
         print("")
 
-    # Agora: rodar SEM AC-3 (pré), mantendo exatamente os prints que você tinha
-    print("Rodando solver SEM AC-3 (pré), MRV e LCV...\n")
-    solucoes, stats = backtracking_solver_sem_ac3(dados)
-
-    print("=== Resultados (SEM AC-3 pré) ===")
-    print(f"Tempo total: {stats['time']:.8f} s | Tempo busca: {stats['time_search']:.8f} s")
-    print(f"Nós testados: {stats['nodes']} | Retrocessos: {stats['retrocessos']}")
-    print(f"Soluções encontradas: {stats['solutions']}\n")
-
-    for i, s in enumerate(solucoes, start=1):
-        print(f"--- Solução {i} ---")
-        for j in sorted(s.keys()):
-            print(f"  {j}: {s[j]}")
-        print("")
-
-    if not solucoes:
-        print("Nenhuma solução válida encontrada.")
-
-main("dificil.json")
+main("medio.json")

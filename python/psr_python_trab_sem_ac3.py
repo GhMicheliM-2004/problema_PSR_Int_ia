@@ -120,22 +120,22 @@ def verificacao_final (arquivo, dados):
     if "limite" in dados :
         limite = float(dados["limite"].items('numero')[0]) # Pega o valor do limite
         soma = {"T1": 0, "T2": 0}
-        contt = {"T1": 0, "T2": 0}
+        conta_times = {"T1": 0, "T2": 0}
         for j in jogadores:
             t = arquivo[j]
             soma[t] += int(dados["overais"][j])
-            contt[t] += 1 # Conta quantos jogadores tem em cada time
+            conta_times[t] += 1 # Conta quantos jogadores tem em cada time
         for t in ("T1", "T2"):
-            if contt[t] > 0 and (soma[t] / contt[t]) > limite: # Se o time tem jogadores e a média ultrapassa o limite
+            if conta_times[t] > 0 and (soma[t] / conta_times[t]) > limite: # Se o time tem jogadores e a média ultrapassa o limite
                 return False
 
     return True
 
 # Backtracking (sem AC-3 pré). 
 # Mede tempo total e tempo de busca.
-# Busca recursiva. Se as variáveis já tem valor, então chama verificacao_final, se passa vai como solução, senão vai como retrocesso. Se ainda faltam variáveis chama a próxima com MRV e ordena os valores possíveis com LCV
 # Retorna uma lista de dicionários solucoes (ex: { "J1": "T1", "J2": "T2", ... }) e stats com as métricas
 def backtracking_solver_sem_ac3(dados):
+    inicio_total = time.time()
     lista_ordenada = sorted(list(dados["jogadores"].keys())) # {'J1','J2','J3',...}
     dominios_iniciais = {v: list(dados["jogadores"][v])[:] for v in lista_ordenada}
     restricoes, vizinhos = construir_restricoes_binarias(lista_ordenada, dados["posicoes"])
@@ -144,9 +144,9 @@ def backtracking_solver_sem_ac3(dados):
     retrocessos = 0 # Retrocessos
     solucoes = [] # Soluções completas encontradas
 
-    inicio_total = time.time()
     inicio_busca = time.time()
 
+    # Busca recursiva. Se as variáveis já tem valor, então chama verificacao_final, se passa vai como solução, senão vai como retrocesso. Se ainda faltam variáveis chama a próxima com MRV e ordena os valores possíveis com LCV
     # Aqui podemos dizer que todas as variáveis foram atribuídas
     def busca(arquivo, dominios_correntes): # dominios_correntes contém os domínios atuais (após forward checking)
         nonlocal nos_encontrados, retrocessos, solucoes
