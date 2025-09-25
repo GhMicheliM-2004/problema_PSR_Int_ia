@@ -1,4 +1,4 @@
-Resultados Python sem AC-3
+Resultados Python com AC-3
 
 Fácil: 
 
@@ -38,21 +38,21 @@ JSON:
 
 -- Verificando restrições --
 
-Rodando solver SEM AC-3 (pré), MRV e LCV...
+Rodando solver COM AC-3 (pré-processamento), MRV e LCV...
 
-=== Resultados (SEM AC-3 pré) ===
-Tempo total: 0.00025034 s | Tempo busca: 0.00024939 s
+=== Resultados COM AC-3 (pré) ===
+Tempo total: 0.00052142 s | Pré-processamento: 0.00003386 s | Busca: 0.00024295 s
 Nós testados: 20 | Retrocessos: 6
 Soluções encontradas: 2
 
---- Solução 1 ---
+--- Solução 1 (COM AC-3) ---
   J1: T1
   J2: T2
   J3: T2
   J4: T2
   J5: T1
 
---- Solução 2 ---
+--- Solução 2 (COM AC-3) ---
   J1: T2
   J2: T1
   J3: T2
@@ -60,7 +60,7 @@ Soluções encontradas: 2
   J5: T1
 
 
-Médio: 
+Médio:
 
 _________ Verificando o JSON: medio.json __________
 
@@ -99,21 +99,21 @@ JSON:
 
 -- Verificando restrições --
 
-Rodando solver SEM AC-3 (pré), MRV e LCV...
+Rodando solver COM AC-3 (pré-processamento), MRV e LCV...
 
-=== Resultados (SEM AC-3 pré) ===
-Tempo total: 0.00016689 s | Tempo busca: 0.00016642 s
+=== Resultados COM AC-3 (pré) ===
+Tempo total: 0.00034666 s | Pré-processamento: 0.00002718 s | Busca: 0.00015903 s
 Nós testados: 16 | Retrocessos: 2
 Soluções encontradas: 2
 
---- Solução 1 ---
+--- Solução 1 (COM AC-3) ---
   J1: T1
   J2: T2
   J3: T2
   J4: T2
   J5: T1
 
---- Solução 2 ---
+--- Solução 2 (COM AC-3) ---
   J1: T2
   J2: T1
   J3: T2
@@ -128,9 +128,8 @@ _________ Verificando o JSON: dificil.json __________
 JSON:
 
 -- Overais (ratings) --
-  J1: 82
-  J2: 74
   J3: 80
+  J4: 78
   J4: 78
   J5: 85
 
@@ -158,14 +157,14 @@ JSON:
   C7: Jogadores na mesma posicao nao podem estar no mesmo time (opcional)
   C8: Media de overais por time nao pode ultrapassar limite (opcional)
 
--- Limite de força (C8): {'numero': '80'}
+-- Limite de força (C8): 80 --
 
 
 -- Verificando restrições --
 
-Rodando solver SEM AC-3 (pré), MRV e LCV...
+Rodando solver COM AC-3 (pré-processamento), MRV e LCV...
 
-=== Resultados (SEM AC-3 pré) ===
-Tempo total: 0.00021267 s | Tempo busca: 0.00021172 s
+=== Resultados COM AC-3 (pré) ===
+Tempo total: 0.00066495 s | Pré-processamento: 0.00005031 s | Busca: 0.00030589 s
 Nós testados: 14 | Retrocessos: 4
 Soluções encontradas: 0
