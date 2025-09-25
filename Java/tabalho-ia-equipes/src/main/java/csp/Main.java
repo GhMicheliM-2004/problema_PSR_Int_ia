@@ -10,26 +10,32 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
         try {
-            // Altere o caminho para o seu arquivo de instância JSON.
-            // Coloque-o na pasta src/main/resources do seu projeto Maven.
+            // Altere aqui para testar: "facil.json", "medio.json", "dificil.json", etc.
             String instancePath = "src/main/resources/dificil.json";
             
+            System.out.println("=========================================================");
             System.out.println("Carregando instância de: " + instancePath);
+            System.out.println("=========================================================");
+            
             CSP baseCsp = InstanceLoader.loadInstanceFromFile(instancePath);
-            System.out.println("Instância carregada com sucesso.");
-
             Solver solver = new Solver();
             
-            System.out.println("\n--- Executando com Heurística PADRÃO (sem AC-3) ---");
+            // --- BLOCO 1: HEURÍSTICA PADRÃO ---
+            System.out.println("\n--- 1. Heurística PADRÃO (Sem AC-3) ---");
             runAndMeasure(solver, baseCsp.clone(), "PADRAO", false);
 
-            System.out.println("\n--- Executando com Heurística PADRÃO (com AC-3) ---");
+            System.out.println("\n--- 2. Heurística PADRÃO (Com AC-3) ---");
             runAndMeasure(solver, baseCsp.clone(), "PADRAO", true);
-
-            // Adicione aqui as chamadas para suas outras heurísticas (MRV, LCV, etc.)
+            
+            // --- BLOCO 2: HEURÍSTICA MRV+LCV ---
+            System.out.println("\n--- 3. Heurística MRV+LCV (Sem AC-3) ---");
+            runAndMeasure(solver, baseCsp.clone(), "MRV+LCV", false);
+            
+            System.out.println("\n--- 4. Heurística MRV+LCV (Com AC-3) ---");
+            runAndMeasure(solver, baseCsp.clone(), "MRV+LCV", true);
 
         } catch (Exception e) {
-            System.err.println("Ocorreu um erro ao executar o programa:");
+            System.err.println("\nOcorreu um erro ao executar o programa:");
             e.printStackTrace();
         }
     }
@@ -42,7 +48,16 @@ public class Main {
 
         if (useAC3) {
             System.out.println("Aplicando pré-processamento AC-3...");
-            solver.ac3(csp);
+            boolean consistent = solver.ac3(csp);
+            if (!consistent) {
+                System.out.println("Inconsistência detectada pelo AC-3. Não há solução.");
+                long endTime = System.nanoTime();
+                long durationMs = (endTime - startTime) / 1_000_000;
+                System.out.println("Tempo de execução: " + durationMs + " ms");
+                System.out.println("Número de retrocessos (backtracks): 0");
+                return;
+            }
+             System.out.println("AC-3 concluído. Domínios reduzidos.");
         }
 
         Map<Variable, Object> solution = solver.solve(csp, heuristic);
@@ -50,7 +65,7 @@ public class Main {
         long endTime = System.nanoTime();
         long durationMs = (endTime - startTime) / 1_000_000;
 
-        System.out.println("Execução finalizada.");
+        System.out.println("Busca finalizada.");
         if (solution != null) {
             System.out.println("Solução encontrada: ");
             solution.entrySet().stream()

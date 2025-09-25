@@ -1,26 +1,28 @@
 {
   "jogadores": {
-    "J1": ["T1", "T2"],
-    "J2": ["T1", "T2"],
-    "J3": ["T1", "T2"],
-    "J4": ["T1", "T2"],
-    "J5": ["T1", "T2"]
+    "J1":["T1","T2"],
+    "J2":["T1","T2"],
+    "J3":["T1","T2"],
+    "J4":["T1","T2"],
+    "J5":["T1","T2"]
   },
-  "overais": {
-    "J1": "82",
-    "J2": "74",
-    "J3": "80",
-    "J4": "78",
-    "J5": "85"
+
+  "overais":{
+    "J1":"82",
+    "J2":"74",
+    "J3":"80",
+    "J4":"78",
+    "J5":"85"
   },
-  "posicoes": {
-    "J1": "volante",
-    "J2": "ponta",
-    "J3": "meia",
-    "J4": "meia",
-    "J5": "volante"
+
+  "posicoes":{
+    "J1":"volante",
+    "J2":"ponta",
+    "J3":"meia",
+    "J4":"meia",
+    "J5":"volante"
   },
-  "limite": {
-    "forca media": "80.0"
-  }
+
+  "limite": { "forca media": "80" }
+
 }
