@@ -1,38 +1,27 @@
 package csp;
 
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
- * Classe principal para executar o resolvedor de CSP.
- * Carrega uma instância, executa o solver com diferentes configurações
- * e imprime os resultados para comparação.
+ * Classe principal para executar e comparar as abordagens de resolução do CSP.
  */
 public class Main {
     public static void main(String[] args) {
         try {
-            // Altere aqui para testar: "facil.json", "medio.json", "dificil.json", etc.
-            String instancePath = "src/main/resources/dificil.json";
-            
-            System.out.println("=========================================================");
-            System.out.println("Carregando instância de: " + instancePath);
-            System.out.println("=========================================================");
-            
+            // Escolha a instância para testar
+            String instancePath = "src/main/resources/main.json";
             CSP baseCsp = InstanceLoader.loadInstanceFromFile(instancePath);
             Solver solver = new Solver();
             
-            // --- BLOCO 1: HEURÍSTICA PADRÃO ---
-            System.out.println("\n--- 1. Heurística PADRÃO (Sem AC-3) ---");
-            runAndMeasure(solver, baseCsp.clone(), "PADRAO", false);
-
-            System.out.println("\n--- 2. Heurística PADRÃO (Com AC-3) ---");
-            runAndMeasure(solver, baseCsp.clone(), "PADRAO", true);
+            System.out.println("Rodando solver com heurísticas MRV e LCV...");
             
-            // --- BLOCO 2: HEURÍSTICA MRV+LCV ---
-            System.out.println("\n--- 3. Heurística MRV+LCV (Sem AC-3) ---");
-            runAndMeasure(solver, baseCsp.clone(), "MRV+LCV", false);
+            // --- Execução SEM AC-3  ---
+            runAndPrint(solver, baseCsp.clone(), false);
             
-            System.out.println("\n--- 4. Heurística MRV+LCV (Com AC-3) ---");
-            runAndMeasure(solver, baseCsp.clone(), "MRV+LCV", true);
+            // --- Execução COM AC-3 ---
+            runAndPrint(solver, baseCsp.clone(), true);
 
         } catch (Exception e) {
             System.err.println("\nOcorreu um erro ao executar o programa:");
@@ -41,40 +30,73 @@ public class Main {
     }
 
     /**
-     * Executa o solver para um dado CSP e configuração, medindo e imprimindo os resultados.
+     * Executa o solver e imprime os resultados no formato especificado.
      */
-    private static void runAndMeasure(Solver solver, CSP csp, String heuristic, boolean useAC3) {
-        long startTime = System.nanoTime();
-
+    private static void runAndPrint(Solver solver, CSP csp, boolean useAC3) {
+        long totalStartTime = System.nanoTime();
+        long preProcTime = 0;
+        
         if (useAC3) {
-            System.out.println("Aplicando pré-processamento AC-3...");
+            System.out.println("\n=== Resultados COM AC-3 (pré) ===");
+            
+            // Mede o tamanho do domínio ANTES do AC-3
+            double domainSizeBefore = calculateAverageDomainSize(csp);
+            
+            long preProcStartTime = System.nanoTime();
             boolean consistent = solver.ac3(csp);
+            preProcTime = System.nanoTime() - preProcStartTime;
+
+            // Mede o tamanho do domínio DEPOIS do AC-3
+            double domainSizeAfter = calculateAverageDomainSize(csp);
+            
+            // Imprime o impacto do AC-3
+            System.out.printf("Impacto do AC-3 nos domínios: Tamanho médio de %.2f -> %.2f\n",
+                    domainSizeBefore, domainSizeAfter);
+            
             if (!consistent) {
-                System.out.println("Inconsistência detectada pelo AC-3. Não há solução.");
-                long endTime = System.nanoTime();
-                long durationMs = (endTime - startTime) / 1_000_000;
-                System.out.println("Tempo de execução: " + durationMs + " ms");
-                System.out.println("Número de retrocessos (backtracks): 0");
+                long totalTime = System.nanoTime() - totalStartTime;
+                System.out.printf("Tempo total: %.8f s | Pré-processamento: %.8f s\n", totalTime / 1e9, preProcTime / 1e9);
+                System.out.println("Inconsistência detectada pelo AC-3. Nenhuma solução possível.");
                 return;
             }
-             System.out.println("AC-3 concluído. Domínios reduzidos.");
-        }
-
-        Map<Variable, Object> solution = solver.solve(csp, heuristic);
-        
-        long endTime = System.nanoTime();
-        long durationMs = (endTime - startTime) / 1_000_000;
-
-        System.out.println("Busca finalizada.");
-        if (solution != null) {
-            System.out.println("Solução encontrada: ");
-            solution.entrySet().stream()
-                .sorted(Map.Entry.comparingByKey(java.util.Comparator.comparing(Variable::getName)))
-                .forEach(entry -> System.out.println("  " + entry.getKey().getName() + " -> " + entry.getValue()));
         } else {
-            System.out.println("Nenhuma solução foi encontrada.");
+             System.out.println("\n=== Resultados SEM AC-3 (pré) ===");
         }
-        System.out.println("Tempo de execução: " + durationMs + " ms");
-        System.out.println("Número de retrocessos (backtracks): " + solver.getBacktrackCount());
+        
+        long searchStartTime = System.nanoTime();
+        List<Map<Variable, Object>> solutions = solver.solve(csp);
+        long searchTime = System.nanoTime() - searchStartTime;
+        long totalTime = System.nanoTime() - totalStartTime;
+        
+        // --- Impressão dos Resultados ---
+        if (useAC3) {
+            System.out.printf("Tempo total: %.8f s | Pré-processamento: %.8f s | Busca: %.8f s\n",
+                    totalTime / 1e9, preProcTime / 1e9, searchTime / 1e9);
+        } else {
+            System.out.printf("Tempo total: %.8f s | Tempo busca: %.8f s\n",
+                    totalTime / 1e9, searchTime / 1e9);
+        }
+        
+        System.out.printf("Nós testados: %d | Retrocessos: %d\n",
+                solver.getNodesTested(), solver.getBacktrackCount());
+        System.out.printf("Soluções encontradas: %d\n", solutions.size());
+
+        for (int i = 0; i < solutions.size(); i++) {
+            String solutionHeader = useAC3 ? "--- Solução " + (i + 1) + " (COM AC-3) ---" : "--- Solução " + (i + 1) + " ---";
+            System.out.println("\n" + solutionHeader);
+            solutions.get(i).entrySet().stream()
+                .sorted(Map.Entry.comparingByKey(java.util.Comparator.comparing(Variable::getName)))
+                .forEach(entry -> System.out.println("  " + entry.getKey().getName() + ": " + entry.getValue()));
+        }
+    }
+
+    /**
+     * Calcula o tamanho médio do domínio para todas as variáveis do problema.
+     */
+    private static double calculateAverageDomainSize(CSP csp) {
+        return csp.getVariables().stream()
+            .mapToInt(v -> v.getDomain().size())
+            .average()
+            .orElse(0.0);
     }
 }

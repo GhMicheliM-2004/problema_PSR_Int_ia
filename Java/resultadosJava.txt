@@ -1,137 +1,101 @@
 FACIL
---- 1. Heurística PADRÃO (Sem AC-3) ---
-Busca finalizada.
-Solução encontrada: 
-  J1 -> T1
-  J2 -> T2
-  J3 -> T2
-  J4 -> T2
-  J5 -> T1
-Tempo de execução: 10 ms
-Número de retrocessos (backtracks): 1
+Rodando solver com heurísticas MRV e LCV...
 
---- 2. Heurística PADRÃO (Com AC-3) ---
-Aplicando pré-processamento AC-3...
-AC-3 concluído. Domínios reduzidos.
-Busca finalizada.
-Solução encontrada: 
-  J1 -> T1
-  J2 -> T2
-  J3 -> T2
-  J4 -> T2
-  J5 -> T1
-Tempo de execução: 21 ms
-Número de retrocessos (backtracks): 1
+=== Resultados SEM AC-3 (pré) ===
+Tempo total: 0,01692360 s | Tempo busca: 0,01689320 s
+Nós testados: 12 | Retrocessos: 10
+Soluções encontradas: 2
 
---- 3. Heurística MRV+LCV (Sem AC-3) ---
-Busca finalizada.
-Solução encontrada: 
-  J1 -> T1
-  J2 -> T2
-  J3 -> T2
-  J4 -> T2
-  J5 -> T1
-Tempo de execução: 5 ms
-Número de retrocessos (backtracks): 0
+--- Solução 1 ---
+  J1: T1
+  J2: T2
+  J3: T2
+  J4: T2
+  J5: T1
 
---- 4. Heurística MRV+LCV (Com AC-3) ---
-Aplicando pré-processamento AC-3...
-AC-3 concluído. Domínios reduzidos.
-Busca finalizada.
-Solução encontrada: 
-  J1 -> T1
-  J2 -> T2
-  J3 -> T2
-  J4 -> T2
-  J5 -> T1
-Tempo de execução: 2 ms
-Número de retrocessos (backtracks): 0
+--- Solução 2 ---
+  J1: T2
+  J2: T1
+  J3: T2
+  J4: T2
+  J5: T1
+
+=== Resultados COM AC-3 (pré) ===
+Impacto do AC-3 nos domínios: Tamanho médio de 1,80 -> 1,80
+Tempo total: 0,00822320 s | Pré-processamento: 0,00257300 s | Busca: 0,00325720 s
+Nós testados: 12 | Retrocessos: 10
+Soluções encontradas: 2
+
+--- Solução 1 (COM AC-3) ---
+  J1: T1
+  J2: T2
+  J3: T2
+  J4: T2
+  J5: T1
+
+--- Solução 2 (COM AC-3) ---
+  J1: T2
+  J2: T1
+  J3: T2
+  J4: T2
+  J5: T1
+
 
 
 MEDIO
 
-=========================================================
-Carregando instância de: src/main/resources/medio.json
-=========================================================
+Rodando solver com heurísticas MRV e LCV...
 
---- 1. Heurística PADRÃO (Sem AC-3) ---
-Busca finalizada.
-Solução encontrada: 
-  J1 -> T1
-  J2 -> T2
-  J3 -> T2
-  J4 -> T2
-  J5 -> T1
-Tempo de execução: 10 ms
-Número de retrocessos (backtracks): 1
+=== Resultados SEM AC-3 (pré) ===
+Tempo total: 0,01858100 s | Tempo busca: 0,01854960 s
+Nós testados: 12 | Retrocessos: 10
+Soluções encontradas: 2
 
---- 2. Heurística PADRÃO (Com AC-3) ---
-Aplicando pré-processamento AC-3...
-AC-3 concluído. Domínios reduzidos.
-Busca finalizada.
-Solução encontrada: 
-  J1 -> T1
-  J2 -> T2
-  J3 -> T2
-  J4 -> T2
-  J5 -> T1
-Tempo de execução: 1 ms
-Número de retrocessos (backtracks): 1
+--- Solução 1 ---
+  J1: T1
+  J2: T2
+  J3: T2
+  J4: T2
+  J5: T1
 
---- 3. Heurística MRV+LCV (Sem AC-3) ---
-Busca finalizada.
-Solução encontrada: 
-  J1 -> T1
-  J2 -> T2
-  J3 -> T2
-  J4 -> T2
-  J5 -> T1
-Tempo de execução: 5 ms
-Número de retrocessos (backtracks): 0
+--- Solução 2 ---
+  J1: T2
+  J2: T1
+  J3: T2
+  J4: T2
+  J5: T1
 
---- 4. Heurística MRV+LCV (Com AC-3) ---
-Aplicando pré-processamento AC-3...
-AC-3 concluído. Domínios reduzidos.
-Busca finalizada.
-Solução encontrada: 
-  J1 -> T1
-  J2 -> T2
-  J3 -> T2
-  J4 -> T2
-  J5 -> T1
-Tempo de execução: 3 ms
-Número de retrocessos (backtracks): 0
+=== Resultados COM AC-3 (pré) ===
+Impacto do AC-3 nos domínios: Tamanho médio de 1,80 -> 1,80
+Tempo total: 0,00787030 s | Pré-processamento: 0,00255210 s | Busca: 0,00304320 s
+Nós testados: 12 | Retrocessos: 10
+Soluções encontradas: 2
+
+--- Solução 1 (COM AC-3) ---
+  J1: T1
+  J2: T2
+  J3: T2
+  J4: T2
+  J5: T1
+
+--- Solução 2 (COM AC-3) ---
+  J1: T2
+  J2: T1
+  J3: T2
+  J4: T2
+  J5: T1
 
 DIFICIL
 
-=========================================================
-Carregando instância de: src/main/resources/dificil.json
-=========================================================
+Rodando solver com heurísticas MRV e LCV...
 
---- 1. Heurística PADRÃO (Sem AC-3) ---
-Busca finalizada.
-Nenhuma solução foi encontrada.
-Tempo de execução: 10 ms
-Número de retrocessos (backtracks): 9
+=== Resultados SEM AC-3 (pré) ===
+Tempo total: 0,01770830 s | Tempo busca: 0,01767820 s
+Nós testados: 6 | Retrocessos: 6
+Soluções encontradas: 0
 
---- 2. Heurística PADRÃO (Com AC-3) ---
-Aplicando pré-processamento AC-3...
-AC-3 concluído. Domínios reduzidos.
-Busca finalizada.
-Nenhuma solução foi encontrada.
-Tempo de execução: 4 ms
-Número de retrocessos (backtracks): 9
-
---- 3. Heurística MRV+LCV (Sem AC-3) ---
-Busca finalizada.
-Nenhuma solução foi encontrada.
-Tempo de execução: 7 ms
-Número de retrocessos (backtracks): 6
-
---- 4. Heurística MRV+LCV (Com AC-3) ---
-Aplicando pré-processamento AC-3...
-AC-3 concluído. Domínios reduzidos.
-Busca finalizada.
-Nenhuma solução foi encontrada.
-Tempo de execução: 3 ms
-Número de retrocessos (backtracks): 6
+=== Resultados COM AC-3 (pré) ===
+Impacto do AC-3 nos domínios: Tamanho médio de 1,80 -> 1,80
+Tempo total: 0,00914530 s | Pré-processamento: 0,00276590 s | Busca: 0,00239840 s
+Nós testados: 6 | Retrocessos: 6
+Soluções encontradas: 0
