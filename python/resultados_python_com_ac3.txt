@@ -41,7 +41,8 @@ JSON:
 Rodando solver COM AC-3 (pré-processamento), MRV e LCV...
 
 === Resultados COM AC-3 (pré) ===
-Tempo total: 0.00052142 s | Pré-processamento: 0.00003386 s | Busca: 0.00024295 s
+Impacto do AC-3 nos domínios: Tamanho médio de 2.00 -> 2.00
+Tempo total: 0.00199032 s | Pré-processamento: 0.00000000 s | Busca: 0.00099516 s
 Nós testados: 20 | Retrocessos: 6
 Soluções encontradas: 2
 
@@ -102,7 +103,8 @@ JSON:
 Rodando solver COM AC-3 (pré-processamento), MRV e LCV...
 
 === Resultados COM AC-3 (pré) ===
-Tempo total: 0.00034666 s | Pré-processamento: 0.00002718 s | Busca: 0.00015903 s
+Impacto do AC-3 nos domínios: Tamanho médio de 2.00 -> 2.00
+Tempo total: 0.00426984 s | Pré-processamento: 0.00190997 s | Busca: 0.00117993 s
 Nós testados: 16 | Retrocessos: 2
 Soluções encontradas: 2
 
@@ -128,8 +130,9 @@ _________ Verificando o JSON: dificil.json __________
 JSON:
 
 -- Overais (ratings) --
+  J1: 82
+  J2: 74
   J3: 80
-  J4: 78
   J4: 78
   J5: 85
 
@@ -165,6 +168,7 @@ JSON:
 Rodando solver COM AC-3 (pré-processamento), MRV e LCV...
 
 === Resultados COM AC-3 (pré) ===
-Tempo total: 0.00066495 s | Pré-processamento: 0.00005031 s | Busca: 0.00030589 s
+Impacto do AC-3 nos domínios: Tamanho médio de 2.00 -> 2.00
+Tempo total: 0.00099492 s | Pré-processamento: 0.00099492 s | Busca: 0.00000000 s
 Nós testados: 14 | Retrocessos: 4
 Soluções encontradas: 0

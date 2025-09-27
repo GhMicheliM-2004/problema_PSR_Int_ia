@@ -187,6 +187,8 @@ def backtracking_solver_com_ac3(dados):
     lista_ordenada = sorted(list(dados["jogadores"].keys()))
     dominios_iniciais = {v: list(dados["jogadores"][v])[:] for v in lista_ordenada}
     restricoes, vizinhos = construir_restricoes_binarias(lista_ordenada, dados["posicoes"])
+    soma_tam_inicial = sum(len(dominios_iniciais[v]) for v in lista_ordenada)
+    tam_medio_inicial = (soma_tam_inicial / len(lista_ordenada)) if lista_ordenada else 0.0
 
     # Aplica AC-3 nos domínios iniciais (pré-processamento)
     dominios = {v: list(dominios_iniciais[v])[:] for v in dominios_iniciais}
@@ -197,7 +199,14 @@ def backtracking_solver_com_ac3(dados):
 
     # se AC-3 detectar inconsistência, retornamos estatísticas vazias (sem buscar)
     if not ac_ok:
-        return [], {"time": tempo_pre, "time_search": 0.0, "nodes": 0, "retrocessos": 0, "solutions": 0}
+        return [], {"time": tempo_pre, 
+                    "time_search": 0.0, 
+                    "nodes": 0, 
+                    "retrocessos": 0, 
+                    "solutions": 0,
+                    "tam_medio_inicial": tam_medio_inicial,
+                    "tam_medio_final": tam_medio_final
+                    }
 
     nos_encontrados = 0 # Nós testados
     retrocessos = 0 # Retrocessos
@@ -233,6 +242,8 @@ def backtracking_solver_com_ac3(dados):
         return False
 
     busca({}, dominios)
+    soma_final = sum(len(dominios[v]) for v in lista_ordenada)
+    tam_medio_final = (soma_final / len(lista_ordenada)) if lista_ordenada else 0.0
     fim_busca = time.time()
     tempo_busca = fim_busca - inicio_busca
     tempo_total = time.time() - inicio_pre + tempo_busca  # inclui pré-processamento na conta total
@@ -243,7 +254,9 @@ def backtracking_solver_com_ac3(dados):
              "time_search": tempo_busca,
              "nodes": nos_encontrados, 
              "retrocessos": retrocessos,
-             "solutions": len(solucoes)
+             "solutions": len(solucoes),
+             "tam_medio_inicial": tam_medio_inicial,
+             "tam_medio_final": tam_medio_final
              }
     
     return solucoes, stats
@@ -285,6 +298,9 @@ def main(caminho):
         tp = stats_ac3["time_pre"]
     else:
         tp = 0.0
+    print("Impacto do AC-3 nos domínios: Tamanho médio de "
+          f"{stats_ac3['tam_medio_inicial']:.2f} -> {stats_ac3['tam_medio_final']:.2f}")
+    tp = stats_ac3.get("time_pre", 0.0)
     print(f"Tempo total: {stats_ac3.get('time', 0.0):.8f} s | Pré-processamento: {tp:.8f} s | Busca: {stats_ac3.get('time_search', 0.0):.8f} s")
     print(f"Nós testados: {stats_ac3.get('nodes', 0)} | Retrocessos: {stats_ac3.get('retrocessos', 0)}")
     print(f"Soluções encontradas: {stats_ac3.get('solutions', 0)}\n")
@@ -294,4 +310,4 @@ def main(caminho):
             print(f"  {j}: {s[j]}")
         print("")
 
-main("medio.json")
+main("dificil.json")

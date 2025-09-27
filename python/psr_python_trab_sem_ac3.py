@@ -140,6 +140,7 @@ def backtracking_solver_sem_ac3(dados):
     dominios_iniciais = {v: list(dados["jogadores"][v])[:] for v in lista_ordenada}
     restricoes, vizinhos = construir_restricoes_binarias(lista_ordenada, dados["posicoes"])
 
+    
     nos_encontrados = 0 # Testes feitos
     retrocessos = 0 # Retrocessos
     solucoes = [] # Soluções completas encontradas
