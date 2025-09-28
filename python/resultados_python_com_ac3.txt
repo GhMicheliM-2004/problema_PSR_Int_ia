@@ -18,7 +18,7 @@ JSON:
   J2: ['T1', 'T2']
   J3: ['T1', 'T2']
   J4: ['T1', 'T2']
-  J5: ['T1', 'T2']
+  J5: ['T1']
 
 -- Posições --
   J1: atacante
@@ -41,9 +41,9 @@ JSON:
 Rodando solver COM AC-3 (pré-processamento), MRV e LCV...
 
 === Resultados COM AC-3 (pré) ===
-Impacto do AC-3 nos domínios: Tamanho médio de 2.00 -> 2.00
-Tempo total: 0.00199032 s | Pré-processamento: 0.00000000 s | Busca: 0.00099516 s
-Nós testados: 20 | Retrocessos: 6
+Impacto do AC-3 nos domínios: Tamanho médio de 1.80 -> 1.80
+Tempo total: 0.00200510 s | Pré-processamento: 0.00000000 s | Busca: 0.00100255 s
+Nós testados: 13 | Retrocessos: 2
 Soluções encontradas: 2
 
 --- Solução 1 (COM AC-3) ---
@@ -79,7 +79,7 @@ JSON:
   J2: ['T1', 'T2']
   J3: ['T1', 'T2']
   J4: ['T1', 'T2']
-  J5: ['T1', 'T2']
+  J5: ['T1']
 
 -- Posições --
   J1: atacante
@@ -103,9 +103,9 @@ JSON:
 Rodando solver COM AC-3 (pré-processamento), MRV e LCV...
 
 === Resultados COM AC-3 (pré) ===
-Impacto do AC-3 nos domínios: Tamanho médio de 2.00 -> 2.00
-Tempo total: 0.00426984 s | Pré-processamento: 0.00190997 s | Busca: 0.00117993 s
-Nós testados: 16 | Retrocessos: 2
+Impacto do AC-3 nos domínios: Tamanho médio de 1.80 -> 1.40
+Tempo total: 0.00000000 s | Pré-processamento: 0.00000000 s | Busca: 0.00000000 s
+Nós testados: 7 | Retrocessos: 0
 Soluções encontradas: 2
 
 --- Solução 1 (COM AC-3) ---
@@ -141,7 +141,7 @@ JSON:
   J2: ['T1', 'T2']
   J3: ['T1', 'T2']
   J4: ['T1', 'T2']
-  J5: ['T1', 'T2']
+  J5: ['T1']
 
 -- Posições --
   J1: volante
@@ -168,7 +168,7 @@ JSON:
 Rodando solver COM AC-3 (pré-processamento), MRV e LCV...
 
 === Resultados COM AC-3 (pré) ===
-Impacto do AC-3 nos domínios: Tamanho médio de 2.00 -> 2.00
-Tempo total: 0.00099492 s | Pré-processamento: 0.00099492 s | Busca: 0.00000000 s
-Nós testados: 14 | Retrocessos: 4
+Impacto do AC-3 nos domínios: Tamanho médio de 1.80 -> 1.40
+Tempo total: 0.00000000 s | Pré-processamento: 0.00000000 s | Busca: 0.00000000 s
+Nós testados: 7 | Retrocessos: 2
 Soluções encontradas: 0

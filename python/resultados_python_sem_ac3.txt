@@ -18,7 +18,7 @@ JSON:
   J2: ['T1', 'T2']
   J3: ['T1', 'T2']
   J4: ['T1', 'T2']
-  J5: ['T1', 'T2']
+  J5: ['T1']
 
 -- Posições --
   J1: atacante
@@ -41,8 +41,8 @@ JSON:
 Rodando solver SEM AC-3 (pré), MRV e LCV...
 
 === Resultados (SEM AC-3 pré) ===
-Tempo total: 0.00025034 s | Tempo busca: 0.00024939 s
-Nós testados: 20 | Retrocessos: 6
+Tempo total: 0.00000000 s | Tempo busca: 0.00000000 s
+Nós testados: 13 | Retrocessos: 2
 Soluções encontradas: 2
 
 --- Solução 1 ---
@@ -78,7 +78,7 @@ JSON:
   J2: ['T1', 'T2']
   J3: ['T1', 'T2']
   J4: ['T1', 'T2']
-  J5: ['T1', 'T2']
+  J5: ['T1']
 
 -- Posições --
   J1: atacante
@@ -102,8 +102,8 @@ JSON:
 Rodando solver SEM AC-3 (pré), MRV e LCV...
 
 === Resultados (SEM AC-3 pré) ===
-Tempo total: 0.00016689 s | Tempo busca: 0.00016642 s
-Nós testados: 16 | Retrocessos: 2
+Tempo total: 0.00099349 s | Tempo busca: 0.00000000 s
+Nós testados: 7 | Retrocessos: 0
 Soluções encontradas: 2
 
 --- Solução 1 ---
@@ -139,7 +139,7 @@ JSON:
   J2: ['T1', 'T2']
   J3: ['T1', 'T2']
   J4: ['T1', 'T2']
-  J5: ['T1', 'T2']
+  J5: ['T1']
 
 -- Posições --
   J1: volante
@@ -158,7 +158,7 @@ JSON:
   C7: Jogadores na mesma posicao nao podem estar no mesmo time (opcional)
   C8: Media de overais por time nao pode ultrapassar limite (opcional)
 
--- Limite de força (C8): {'numero': '80'}
+-- Limite de força (C8): 80 --
 
 
 -- Verificando restrições --
@@ -166,6 +166,8 @@ JSON:
 Rodando solver SEM AC-3 (pré), MRV e LCV...
 
 === Resultados (SEM AC-3 pré) ===
-Tempo total: 0.00021267 s | Tempo busca: 0.00021172 s
-Nós testados: 14 | Retrocessos: 4
+Tempo total: 0.00100183 s | Tempo busca: 0.00000000 s
+Nós testados: 7 | Retrocessos: 2
 Soluções encontradas: 0
+
+Nenhuma solução válida encontrada.
