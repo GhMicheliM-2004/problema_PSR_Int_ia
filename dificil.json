@@ -4,7 +4,7 @@
     "J2":["T1","T2"],
     "J3":["T1","T2"],
     "J4":["T1","T2"],
-    "J5":["T1","T2"]
+    "J5":["T1"]
   },
 
   "overais":{
@@ -35,5 +35,6 @@
     "C7": "Jogadores na mesma posicao nao podem estar no mesmo time (opcional)",
     "C8": "Media de overais por time nao pode ultrapassar limite (opcional)"
   }
+
 
 }
