@@ -14,7 +14,7 @@ JSON:
   J2: T1 T2
   J3: T1 T2
   J4: T1 T2
-  J5: T1 T2
+  J5: T1
 
 -- Posicoes --
   J1: atacante
@@ -24,14 +24,19 @@ JSON:
   J5: lateral
 
 -- Restricoes --
-  (nenhuma listada no JSON)
+  C1: "{j | Vj=T1}| = |{j | Vj=T2}| +- 1"
+  C2: "V1 != V2"
+  C3: "V3 = V4"
+  C4: "Minimo 2 jogadores por time"
+  C5: "V5 != T2"
+  C6: "Se V3 = V4 = T1 entao V1 = T2"
 
 Rodando solver COM AC-3 (pre), MRV e LCV...
 
 === Resultados COM AC-3 (pre) ===
-Impacto do AC-3 nos dominios: Tamanho medio de 2.00 -> 2.00
-Tempo total: 0.00101700 s | Pre-processamento: 0.00000000 s | Busca: 0.00101700 s
-Nos testados: 20 | Retrocessos: 6
+Impacto do AC-3 nos dominios: Tamanho medio de 1.80 -> 1.80
+Tempo total: 0.00000000 s | Pre-processamento: 0.00000000 s | Busca: 0.00000000 s
+Nos testados: 13 | Retrocessos: 2
 Solucoes encontradas: 2
 
 --- Solucao 1 (COM AC-3) ---
@@ -47,7 +52,6 @@ Solucoes encontradas: 2
   J3: T2
   J4: T2
   J5: T1
-
 
   _________ Verificando o JSON: medio.json __________
 
@@ -61,11 +65,11 @@ JSON:
   J5: 72
 
 -- Dominios (times permitidos) --
-  J1: T1 T2 
+  J1: T1 T2
   J2: T1 T2
   J3: T1 T2
   J4: T1 T2
-  J5: T1 T2
+  J5: T1
 
 -- Posicoes --
   J1: atacante
@@ -75,14 +79,20 @@ JSON:
   J5: goleiro
 
 -- Restricoes --
-  (nenhuma listada no JSON)
+  C1: "{j | Vj=T1}| = |{j | Vj=T2}| +- 1"
+  C2: "V1 != V2"
+  C3: "V3 = V4"
+  C4: "Minimo 2 jogadores por time"
+  C5: "V5 != T2"
+  C6: "Se V3 = V4 = T1 entao V1 = T2"
+  C7: "Jogadores na mesma posicao nao podem estar no mesmo time (opcional)"
 
 Rodando solver COM AC-3 (pre), MRV e LCV...
 
 === Resultados COM AC-3 (pre) ===
-Impacto do AC-3 nos dominios: Tamanho medio de 2.00 -> 2.00
-Tempo total: 0.00100500 s | Pre-processamento: 0.00100500 s | Busca: 0.00000000 s
-Nos testados: 16 | Retrocessos: 2
+Impacto do AC-3 nos dominios: Tamanho medio de 1.80 -> 1.40
+Tempo total: 0.00099800 s | Pre-processamento: 0.00000000 s | Busca: 0.00099800 s
+Nos testados: 7 | Retrocessos: 0
 Solucoes encontradas: 2
 
 --- Solucao 1 (COM AC-3) ---
@@ -99,6 +109,7 @@ Solucoes encontradas: 2
   J4: T2
   J5: T1
 
+
 _________ Verificando o JSON: dificil.json __________
 
 JSON:
@@ -111,11 +122,11 @@ JSON:
   J5: 85
 
 -- Dominios (times permitidos) --
-  J1: T1 T2
+  J1: T1 T2 
   J2: T1 T2
-  J3: T1 T2 
+  J3: T1 T2
   J4: T1 T2
-  J5: T1 T2
+  J5: T1
 
 -- Posicoes --
   J1: volante
@@ -125,16 +136,23 @@ JSON:
   J5: volante
 
 -- Restricoes --
-  (nenhuma listada no JSON)
+  C1: "{j | Vj=T1}| = |{j | Vj=T2}| +- 1"
+  C2: "V1 != V2"
+  C3: "V3 = V4"
+  C4: "Minimo 2 jogadores por time"
+  C5: "V5 != T2"
+  C6: "Se V3 = V4 = T1 entao V1 = T2"
+  C7: "Jogadores na mesma posicao nao podem estar no mesmo time (opcional)"
+  C8: "Media de overais por time nao pode ultrapassar limite (opcional)"
 
--- Limite de forca (C8): {"forca media":"80"} --
+-- Limite de forca (C8): "80" --
 
 Rodando solver COM AC-3 (pre), MRV e LCV...
 
 === Resultados COM AC-3 (pre) ===
-Impacto do AC-3 nos dominios: Tamanho medio de 2.00 -> 2.00
-Tempo total: 0.00099500 s | Pre-processamento: 0.00000000 s | Busca: 0.00099500 s
-Nos testados: 14 | Retrocessos: 4
+Impacto do AC-3 nos dominios: Tamanho medio de 1.80 -> 1.40
+Tempo total: 0.00000000 s | Pre-processamento: 0.00000000 s | Busca: 0.00000000 s
+Nos testados: 7 | Retrocessos: 2
 Solucoes encontradas: 0
 
 Nenhuma solucao valida encontrada.
