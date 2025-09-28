@@ -4,9 +4,9 @@
     "J2":["T1","T2"],
     "J3":["T1","T2"],
     "J4":["T1","T2"],
-    "J5":["T1","T2"]
+    "J5":["T1"]
   },
-
+  
   "overais":{
     "J1":"70",
     "J2":"74",
@@ -32,5 +32,6 @@
     "C6": "Se V3 = V4 = T1 entao V1 = T2",
     "C7": "Jogadores na mesma posicao nao podem estar no mesmo time (opcional)"
   }
+
 
 }
