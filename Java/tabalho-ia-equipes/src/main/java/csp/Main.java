@@ -2,7 +2,6 @@ package csp;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * Classe principal para executar e comparar as abordagens de resolução do CSP.
@@ -11,17 +10,19 @@ public class Main {
     public static void main(String[] args) {
         try {
             // Escolha a instância para testar
-            String instancePath = "src/main/resources/main.json";
-            CSP baseCsp = InstanceLoader.loadInstanceFromFile(instancePath);
-            Solver solver = new Solver();
+            String instancePath = "src/main/resources/dificil.json"; // Use a sua instância média aqui
             
             System.out.println("Rodando solver com heurísticas MRV e LCV...");
             
-            // --- Execução SEM AC-3  ---
-            runAndPrint(solver, baseCsp.clone(), false);
+            // --- Execução SEM AC-3 (AGORA VEM PRIMEIRO) ---
+            System.out.println("\n=== Resultados SEM AC-3 (pré) ===");
+            CSP cspSemAc3 = InstanceLoader.loadInstanceFromFile(instancePath);
+            runAndPrint(new Solver(), cspSemAc3, false);
             
-            // --- Execução COM AC-3 ---
-            runAndPrint(solver, baseCsp.clone(), true);
+            // --- Execução COM AC-3 (AGORA VEM DEPOIS) ---
+            System.out.println("\n=== Resultados COM AC-3 (pré) ===");
+            CSP cspComAc3 = InstanceLoader.loadInstanceFromFile(instancePath);
+            runAndPrint(new Solver(), cspComAc3, true);
 
         } catch (Exception e) {
             System.err.println("\nOcorreu um erro ao executar o programa:");
@@ -37,19 +38,14 @@ public class Main {
         long preProcTime = 0;
         
         if (useAC3) {
-            System.out.println("\n=== Resultados COM AC-3 (pré) ===");
-            
-            // Mede o tamanho do domínio ANTES do AC-3
             double domainSizeBefore = calculateAverageDomainSize(csp);
             
             long preProcStartTime = System.nanoTime();
             boolean consistent = solver.ac3(csp);
             preProcTime = System.nanoTime() - preProcStartTime;
 
-            // Mede o tamanho do domínio DEPOIS do AC-3
             double domainSizeAfter = calculateAverageDomainSize(csp);
             
-            // Imprime o impacto do AC-3
             System.out.printf("Impacto do AC-3 nos domínios: Tamanho médio de %.2f -> %.2f\n",
                     domainSizeBefore, domainSizeAfter);
             
@@ -59,8 +55,6 @@ public class Main {
                 System.out.println("Inconsistência detectada pelo AC-3. Nenhuma solução possível.");
                 return;
             }
-        } else {
-             System.out.println("\n=== Resultados SEM AC-3 (pré) ===");
         }
         
         long searchStartTime = System.nanoTime();
@@ -68,7 +62,6 @@ public class Main {
         long searchTime = System.nanoTime() - searchStartTime;
         long totalTime = System.nanoTime() - totalStartTime;
         
-        // --- Impressão dos Resultados ---
         if (useAC3) {
             System.out.printf("Tempo total: %.8f s | Pré-processamento: %.8f s | Busca: %.8f s\n",
                     totalTime / 1e9, preProcTime / 1e9, searchTime / 1e9);
@@ -90,9 +83,6 @@ public class Main {
         }
     }
 
-    /**
-     * Calcula o tamanho médio do domínio para todas as variáveis do problema.
-     */
     private static double calculateAverageDomainSize(CSP csp) {
         return csp.getVariables().stream()
             .mapToInt(v -> v.getDomain().size())

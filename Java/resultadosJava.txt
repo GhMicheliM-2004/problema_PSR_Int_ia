@@ -47,7 +47,7 @@ MEDIO
 Rodando solver com heurísticas MRV e LCV...
 
 === Resultados SEM AC-3 (pré) ===
-Tempo total: 0,01858100 s | Tempo busca: 0,01854960 s
+Tempo total: 0,01020450 s | Tempo busca: 0,01020420 s
 Nós testados: 12 | Retrocessos: 10
 Soluções encontradas: 2
 
@@ -66,9 +66,9 @@ Soluções encontradas: 2
   J5: T1
 
 === Resultados COM AC-3 (pré) ===
-Impacto do AC-3 nos domínios: Tamanho médio de 1,80 -> 1,80
-Tempo total: 0,00787030 s | Pré-processamento: 0,00255210 s | Busca: 0,00304320 s
-Nós testados: 12 | Retrocessos: 10
+Impacto do AC-3 nos domínios: Tamanho médio de 1,80 -> 1,40
+Tempo total: 0,01019450 s | Pré-processamento: 0,00469910 s | Busca: 0,00113230 s
+Nós testados: 8 | Retrocessos: 6
 Soluções encontradas: 2
 
 --- Solução 1 (COM AC-3) ---
@@ -90,12 +90,12 @@ DIFICIL
 Rodando solver com heurísticas MRV e LCV...
 
 === Resultados SEM AC-3 (pré) ===
-Tempo total: 0,01770830 s | Tempo busca: 0,01767820 s
+Tempo total: 0,00938760 s | Tempo busca: 0,00938710 s
 Nós testados: 6 | Retrocessos: 6
 Soluções encontradas: 0
 
 === Resultados COM AC-3 (pré) ===
-Impacto do AC-3 nos domínios: Tamanho médio de 1,80 -> 1,80
-Tempo total: 0,00914530 s | Pré-processamento: 0,00276590 s | Busca: 0,00239840 s
+Impacto do AC-3 nos domínios: Tamanho médio de 1,80 -> 1,40
+Tempo total: 0,01088970 s | Pré-processamento: 0,00326990 s | Busca: 0,00102370 s
 Nós testados: 6 | Retrocessos: 6
 Soluções encontradas: 0

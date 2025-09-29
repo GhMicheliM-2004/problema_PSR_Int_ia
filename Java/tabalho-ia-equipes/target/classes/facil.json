@@ -4,7 +4,7 @@
     "J2":["T1","T2"],
     "J3":["T1","T2"],
     "J4":["T1","T2"],
-    "J5":["T1","T2"]
+    "J5":["T1"]
   },
 
   "overais":{
@@ -22,7 +22,17 @@
     "J4":"goleiro",
     "J5":"lateral"
   },
-  "limite": {
-    "forca media": "100.0"
+
+  "limite": { "numero": "100" },
+
+      "restricoes":{
+    "C1": "{j | Vj=T1}| = |{j | Vj=T2}| +- 1",
+    "C2": "V1 != V2",
+    "C3": "V3 = V4",
+    "C4": "Minimo 2 jogadores por time",
+    "C5": "V5 != T2",
+    "C6": "Se V3 = V4 = T1 entao V1 = T2"
   }
+  
 }
+

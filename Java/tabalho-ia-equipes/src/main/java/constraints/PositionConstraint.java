@@ -10,16 +10,26 @@ import java.util.stream.Collectors;
 
 /**
  * Restrição C7: Jogadores com mesma posição não podem se concentrar no mesmo
- * time. A regra específica (ex: não mais de 1 'meia' ou 'volante') é
- * implementada aqui.
+ * time. Esta versão é genérica e impede que qualquer posição que se repita
+ * na instância seja alocada no mesmo time.
  */
 public class PositionConstraint implements Constraint {
     private final List<Variable> scope;
     private final Map<String, String> positions;
+    private final List<String> positionsToEnforce;
 
     public PositionConstraint(List<Variable> scope, Map<String, String> positions) {
         this.scope = new ArrayList<>(scope);
         this.positions = positions;
+        
+        // Descobre automaticamente quais posições aparecem mais de uma vez
+        // para aplicar a regra apenas a elas.
+        this.positionsToEnforce = positions.values().stream()
+                .collect(Collectors.groupingBy(p -> p, Collectors.counting()))
+                .entrySet().stream()
+                .filter(entry -> entry.getValue() > 1)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -44,11 +54,13 @@ public class PositionConstraint implements Constraint {
         for (List<String> assignedPositions : teamPositions.values()) {
             Map<String, Long> counts = assignedPositions.stream()
                     .collect(Collectors.groupingBy(p -> p, Collectors.counting()));
-
-            // Regra da instância 'dificil.json':
-            // não pode ter 2+ volantes OU 2+ meias no mesmo time.
-            if (counts.getOrDefault("volante", 0L) > 1 || counts.getOrDefault("meia", 0L) > 1) {
-                return false;
+            
+            // Regra genérica: para qualquer posição que deva ser fiscalizada (aparece > 1 vez),
+            // a contagem no time não pode ser maior que 1.
+            for (String position : positionsToEnforce) {
+                if (counts.getOrDefault(position, 0L) > 1) {
+                    return false;
+                }
             }
         }
         return true;

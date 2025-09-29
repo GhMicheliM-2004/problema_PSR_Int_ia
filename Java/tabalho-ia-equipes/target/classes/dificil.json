@@ -4,7 +4,7 @@
     "J2":["T1","T2"],
     "J3":["T1","T2"],
     "J4":["T1","T2"],
-    "J5":["T1","T2"]
+    "J5":["T1"]
   },
 
   "overais":{
@@ -23,6 +23,18 @@
     "J5":"volante"
   },
 
-  "limite": { "forca media": "80" }
+  "limite": { "numero": "80" },
+
+  "restricoes":{
+    "C1": "{j | Vj=T1}| = |{j | Vj=T2}| +- 1",
+    "C2": "V1 != V2",
+    "C3": "V3 = V4",
+    "C4": "Minimo 2 jogadores por time",
+    "C5": "V5 != T2",
+    "C6": "Se V3 = V4 = T1 entao V1 = T2",
+    "C7": "Jogadores na mesma posicao nao podem estar no mesmo time (opcional)",
+    "C8": "Media de overais por time nao pode ultrapassar limite (opcional)"
+  }
+
 
 }
